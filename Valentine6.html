@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            background: linear-gradient(#ffb6d9, #ff4d88);
+            font-family: "Comic Sans MS", Arial, sans-serif;
+            text-align: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        h1 {
+            color: white;
+            font-size: 55px;
+            margin-top: 70px;
+            text-shadow: 3px 3px #ff1a66;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .btn {
+            font-size: 28px;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin: 20px;
+            transition: 0.3s;
+        }
+
+        #yesBtn {
+            background-color: #ff1a75;
+            color: white;
+            box-shadow: 0 0 15px #ff1a75;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.15);
+        }
+
+        #noBtn {
+            background-color: #ffd6e8;
+            color: #ff1a75;
+            position: absolute;
+            box-shadow: 0 0 10px #ff99bb;
+        }
+
+        .heart {
+            position: fixed;
+            top: -10px;
+            color: #ff1a75;
+            font-size: 25px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10px); opacity: 1; }
+            100% { transform: translateY(110vh); opacity: 0; }
+        }
+
+        #grandAnimation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #teddy {
+            font-size: 150px;
+            position: absolute;
+            left: -300px;
+            top: 40%;
+            animation: teddySlide 1.5s ease-out forwards;
+        }
+
+        @keyframes teddySlide {
+            0% { left: -300px; }
+            100% { left: 20%; }
+        }
+
+        #bouquet {
+            font-size: 150px;
+            position: absolute;
+            right: -300px;
+            top: 40%;
+            animation: bouquetSpin 1.5s ease-out forwards;
+        }
+
+        @keyframes bouquetSpin {
+            0% { right: -300px; transform: rotate(-360deg); }
+            100% { right: 20%; transform: rotate(0deg); }
+        }
+
+        .sparkle {
+            position: fixed;
+            font-size: 30px;
+            animation: sparkleAnim 2s ease-out forwards;
+        }
+
+        @keyframes sparkleAnim {
+            0% { transform: scale(0); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Will you be my Valentine? 💖</h1>
+
+    <button class="btn" id="yesBtn">Yes 💘</button>
+    <button class="btn" id="noBtn">No 😢</button>
+
+    <div id="grandAnimation">
+        <div id="teddy">🧸</div>
+        <div id="bouquet">💐</div>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+        const grandAnimation = document.getElementById("grandAnimation");
+
+        yesBtn.onclick = function() {
+            grandAnimation.style.display = "flex";
+
+            for (let i = 0; i < 40; i++) {
+                createSparkle();
+            }
+
+            setTimeout(() => {
+                alert("Awwww! 🧸💐 You said YES!");
+            }, 1500);
+        };
+
+        function createSparkle() {
+            const sparkle = document.createElement("div");
+            sparkle.classList.add("sparkle");
+            sparkle.innerHTML = "✨";
+
+            sparkle.style.left = Math.random() * 100 + "vw";
+            sparkle.style.top = Math.random() * 100 + "vh";
+
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => sparkle.remove(), 2000);
+        }
+
+        noBtn.onclick = moveNoButton;
+        noBtn.onmouseover = moveNoButton;
+
+        function moveNoButton() {
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 150);
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }
+
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = ["❤️","💕","💗","💞"][Math.floor(Math.random()*4)];
+
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+            document.body.appendChild(heart);
+
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        setInterval(createHeart, 200);
+    </script>
+
+</body>
+</html>
